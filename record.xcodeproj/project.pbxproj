@@ -1,0 +1,288 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		445114201426CBDF001702D4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4451141F1426CBDF001702D4 /* UIKit.framework */; };
+		445114221426CBDF001702D4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 445114211426CBDF001702D4 /* Foundation.framework */; };
+		445114241426CBDF001702D4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 445114231426CBDF001702D4 /* CoreGraphics.framework */; };
+		4451142A1426CBDF001702D4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 445114281426CBDF001702D4 /* InfoPlist.strings */; };
+		4451142C1426CBDF001702D4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4451142B1426CBDF001702D4 /* main.m */; };
+		445114301426CBDF001702D4 /* recordAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4451142F1426CBDF001702D4 /* recordAppDelegate.m */; };
+		445114331426CBDF001702D4 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 445114311426CBDF001702D4 /* MainWindow.xib */; };
+		445114361426CBDF001702D4 /* recordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 445114351426CBDF001702D4 /* recordViewController.m */; };
+		445114391426CBDF001702D4 /* recordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 445114371426CBDF001702D4 /* recordViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4451141B1426CBDF001702D4 /* record.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = record.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4451141F1426CBDF001702D4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		445114211426CBDF001702D4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		445114231426CBDF001702D4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		445114271426CBDF001702D4 /* record-Info.plist */ = {isa = PBXFileReference; path = "record-Info.plist"; sourceTree = "<group>"; };
+		445114291426CBDF001702D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4451142B1426CBDF001702D4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4451142D1426CBDF001702D4 /* record-Prefix.pch */ = {isa = PBXFileReference; path = "record-Prefix.pch"; sourceTree = "<group>"; };
+		4451142E1426CBDF001702D4 /* recordAppDelegate.h */ = {isa = PBXFileReference; path = recordAppDelegate.h; sourceTree = "<group>"; };
+		4451142F1426CBDF001702D4 /* recordAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = recordAppDelegate.m; sourceTree = "<group>"; };
+		445114321426CBDF001702D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		445114341426CBDF001702D4 /* recordViewController.h */ = {isa = PBXFileReference; path = recordViewController.h; sourceTree = "<group>"; };
+		445114351426CBDF001702D4 /* recordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = recordViewController.m; sourceTree = "<group>"; };
+		445114381426CBDF001702D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/recordViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		445114181426CBDF001702D4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				445114201426CBDF001702D4 /* UIKit.framework in Frameworks */,
+				445114221426CBDF001702D4 /* Foundation.framework in Frameworks */,
+				445114241426CBDF001702D4 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		445114101426CBDF001702D4 = {
+			isa = PBXGroup;
+			children = (
+				445114251426CBDF001702D4 /* record */,
+				4451141E1426CBDF001702D4 /* Frameworks */,
+				4451141C1426CBDF001702D4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4451141C1426CBDF001702D4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4451141B1426CBDF001702D4 /* record.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4451141E1426CBDF001702D4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4451141F1426CBDF001702D4 /* UIKit.framework */,
+				445114211426CBDF001702D4 /* Foundation.framework */,
+				445114231426CBDF001702D4 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		445114251426CBDF001702D4 /* record */ = {
+			isa = PBXGroup;
+			children = (
+				4451142E1426CBDF001702D4 /* recordAppDelegate.h */,
+				4451142F1426CBDF001702D4 /* recordAppDelegate.m */,
+				445114311426CBDF001702D4 /* MainWindow.xib */,
+				445114341426CBDF001702D4 /* recordViewController.h */,
+				445114351426CBDF001702D4 /* recordViewController.m */,
+				445114371426CBDF001702D4 /* recordViewController.xib */,
+				445114261426CBDF001702D4 /* Supporting Files */,
+			);
+			path = record;
+			sourceTree = "<group>";
+		};
+		445114261426CBDF001702D4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				445114271426CBDF001702D4 /* record-Info.plist */,
+				445114281426CBDF001702D4 /* InfoPlist.strings */,
+				4451142B1426CBDF001702D4 /* main.m */,
+				4451142D1426CBDF001702D4 /* record-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4451141A1426CBDF001702D4 /* record */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4451143C1426CBDF001702D4 /* Build configuration list for PBXNativeTarget "record" */;
+			buildPhases = (
+				445114171426CBDF001702D4 /* Sources */,
+				445114181426CBDF001702D4 /* Frameworks */,
+				445114191426CBDF001702D4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = record;
+			productName = record;
+			productReference = 4451141B1426CBDF001702D4 /* record.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		445114121426CBDF001702D4 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 445114151426CBDF001702D4 /* Build configuration list for PBXProject "record" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 445114101426CBDF001702D4;
+			productRefGroup = 4451141C1426CBDF001702D4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4451141A1426CBDF001702D4 /* record */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		445114191426CBDF001702D4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4451142A1426CBDF001702D4 /* InfoPlist.strings in Resources */,
+				445114331426CBDF001702D4 /* MainWindow.xib in Resources */,
+				445114391426CBDF001702D4 /* recordViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		445114171426CBDF001702D4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4451142C1426CBDF001702D4 /* main.m in Sources */,
+				445114301426CBDF001702D4 /* recordAppDelegate.m in Sources */,
+				445114361426CBDF001702D4 /* recordViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		445114281426CBDF001702D4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				445114291426CBDF001702D4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		445114311426CBDF001702D4 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				445114321426CBDF001702D4 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		445114371426CBDF001702D4 /* recordViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				445114381426CBDF001702D4 /* en */,
+			);
+			name = recordViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4451143A1426CBDF001702D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4451143B1426CBDF001702D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4451143D1426CBDF001702D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "record/record-Prefix.pch";
+				INFOPLIST_FILE = "record/record-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4451143E1426CBDF001702D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "record/record-Prefix.pch";
+				INFOPLIST_FILE = "record/record-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		445114151426CBDF001702D4 /* Build configuration list for PBXProject "record" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4451143A1426CBDF001702D4 /* Debug */,
+				4451143B1426CBDF001702D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4451143C1426CBDF001702D4 /* Build configuration list for PBXNativeTarget "record" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4451143D1426CBDF001702D4 /* Debug */,
+				4451143E1426CBDF001702D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 445114121426CBDF001702D4 /* Project object */;
+}
