@@ -7,8 +7,9 @@
 //
 
 #import "recordViewController.h"
-
+#import "HttpUploader.h"
 @implementation recordViewController
+@synthesize lblStatus;
 
 - (void)didReceiveMemoryWarning
 {
@@ -20,13 +21,13 @@
 
 #pragma mark - View lifecycle
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    recordEncoding = ENC_AAC;
 }
-*/
 
 - (void)viewDidUnload
 {
@@ -41,4 +42,347 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
+
+-(IBAction) startRecording
+{
+    NSLog(@"startRecording");
+    [audioRecorder release];
+    audioRecorder = nil;
+    
+    // Init audio with record capability
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
+    
+    NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] initWithCapacity:10];
+    if(recordEncoding == ENC_PCM)
+    {
+        [recordSettings setObject:[NSNumber numberWithInt: kAudioFormatLinearPCM] forKey: AVFormatIDKey];
+        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
+        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
+        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
+        [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
+        [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];   
+    }
+    else
+    {
+        NSNumber *formatObject;
+        
+        switch (recordEncoding) {
+            case (ENC_AAC): 
+                formatObject = [NSNumber numberWithInt: kAudioFormatMPEG4AAC];
+                break;
+            case (ENC_ALAC):
+                formatObject = [NSNumber numberWithInt: kAudioFormatAppleLossless];
+                break;
+            case (ENC_IMA4):
+                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
+                break;
+            case (ENC_ILBC):
+                formatObject = [NSNumber numberWithInt: kAudioFormatiLBC];
+                break;
+            case (ENC_ULAW):
+                formatObject = [NSNumber numberWithInt: kAudioFormatULaw];
+                break;
+            default:
+                formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
+        }
+        
+        [recordSettings setObject:formatObject forKey: AVFormatIDKey];
+        [recordSettings setObject:[NSNumber numberWithFloat:8000.0] forKey: AVSampleRateKey];
+        [recordSettings setObject:[NSNumber numberWithInt:1] forKey:AVNumberOfChannelsKey];
+        [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
+        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
+        [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
+        /*
+        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
+        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
+        [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
+        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
+        [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
+         */
+    }
+    
+    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/recordTest.aac", [[NSBundle mainBundle] resourcePath]]];
+    
+    
+    NSError *error = nil;
+    audioRecorder = [[ AVAudioRecorder alloc] initWithURL:url settings:recordSettings error:&error];
+
+    
+    if ([audioRecorder prepareToRecord] == YES){
+        [audioRecorder record];
+    }else {
+        int errorCode = CFSwapInt32HostToBig ([error code]); 
+        NSLog(@"Error: %@ [%4.4s])" , [error localizedDescription], (char*)&errorCode); 
+        
+    }
+    [recordSettings release];
+    NSLog(@"recording");
+}
+
+-(IBAction) stopRecording
+{
+    NSLog(@"stopRecording");
+    [audioRecorder stop];
+    NSLog(@"stopped");
+}
+
+-(IBAction) playRecording
+{
+    NSLog(@"playRecording");
+    // Init audio with playback capability
+    //AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    //[audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
+    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/recordTest.aac", [[NSBundle mainBundle] resourcePath]]];
+    NSError *error;
+    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    audioPlayer.numberOfLoops = 0;
+    [audioPlayer play];
+    NSLog(@"playing");
+}
+
+-(IBAction) stopPlaying
+{
+    NSLog(@"stopPlaying");
+    [audioPlayer stop];
+    NSLog(@"stopped");
+}
+
+- (IBAction)btnRecordDown:(id)sender {
+    printf("%s","btnDown");
+    [self startRecording];
+    [lblStatus setText:[NSString stringWithFormat:@"正在录音...."]];
+}
+
+- (IBAction)btnRecordUp:(id)sender {
+    printf("%s","btnUp");
+    [self stopRecording];
+    [lblStatus setText:[NSString stringWithFormat:@"录音完成!!!"]];
+}
+
+- (IBAction)btnRecordExit:(id)sender {
+    printf("%s","btnExit");
+    [self stopRecording];
+    [lblStatus setText:[NSString stringWithFormat:@"录音完成!!!"]];
+}
+
+- (IBAction)btnPlayLocal:(id)sender {
+    if (audioPlayer)
+    {
+        [self stopPlaying];
+        [audioPlayer release];
+        audioPlayer=nil;
+    }
+    [self playRecording];
+    //[self showSavedPhoto:sender];
+}
+
+- (IBAction)btnHttpUpload:(id)sender {
+    [lblStatus setText:@"上传中...."];
+    //http://221.7.245.196/up/file/recordTest.aac
+    [[[HttpUploader alloc] initWithURL:[NSURL URLWithString:@"http://221.7.245.196/up/Upload"]
+                             filePath:[NSString stringWithFormat:@"%@/recordTest.aac", [[NSBundle mainBundle] resourcePath]]
+                           remoteFile:[NSString stringWithFormat:@"recordTest.aac"]
+                             delegate:self 
+                         doneSelector:@selector(onUploadDone:)
+                        errorSelector:@selector(onUploadError:)
+                     progressSelector:@selector(onProgressSelector:)] autorelease]; 
+}   
+
+
+//异步下载
+- (IBAction)btnPlayHttp:(id)sender {
+    if (audioPlayer)
+    {
+        [self stopPlaying];
+        [audioPlayer release];
+        audioPlayer=nil;
+    }
+     [lblStatus setText:[NSString stringWithFormat:@"开始经收!!!"]];
+    if (httpDataBuf)
+        [httpDataBuf release];
+    httpDataBuf=[[NSMutableData alloc] init];
+    
+    NSURL *url=[NSURL URLWithString:@"http://221.7.245.196/up/file/recordTest.aac"];
+    
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest setHTTPMethod:@"GET"];
+    NSURLConnection * connection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    [connection autorelease];
+    
+}
+//接受数据的过成
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    NSLog(@"%s: self:0x%p\n", __func__, self);
+    
+    [httpDataBuf appendData:data];
+    [lblStatus setText:[NSString stringWithFormat:@"已经收[%d]字节",[httpDataBuf length]]];
+    /*
+    if (audioPlayer.playing == FALSE) {
+        //[lblStatus setText:[NSString stringWithFormat:@"共接收[%d]字节 开始播放",[httpDataBuf length]]];
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+        NSError *error;
+        audioPlayer =[[AVAudioPlayer alloc] initWithData:httpDataBuf error:&error];
+        audioPlayer.numberOfLoops=0;
+        [audioPlayer play];
+    }
+    */
+}
+//数据接受完成
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    if (audioPlayer)
+    {
+        [self stopPlaying];
+        [audioPlayer release];
+        audioPlayer=nil;
+    }
+    if (audioPlayer.playing == FALSE) {
+        [lblStatus setText:[NSString stringWithFormat:@"共接收[%d]字节 开始播放",[httpDataBuf length]]];
+       // AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+       // [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+        NSError *error;
+        audioPlayer =[[AVAudioPlayer alloc] initWithData:httpDataBuf error:&error];
+        audioPlayer.numberOfLoops=0;
+        [audioPlayer play];
+    }  
+     
+}
+
+//同步
+- (IBAction)btnAsyncHttp:(id)sender {
+    
+    if (audioPlayer)
+    {
+        [self stopPlaying];
+        [audioPlayer release];
+        audioPlayer=nil;
+    }
+    if (httpDataBuf)
+        [httpDataBuf release];
+    httpDataBuf=[[NSMutableData alloc] init];
+
+    
+    NSString *urlAsString = @"http://221.7.245.196/up/file/recordTest.aac";
+    NSURL    *url = [NSURL URLWithString:urlAsString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSError *error = nil;
+    NSData   *data = [NSURLConnection sendSynchronousRequest:request
+                                           returningResponse:nil
+                                                       error:&error];
+    /* 下载的数据 */
+    if (data != nil){
+        [httpDataBuf appendData:data];
+        //AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        //[audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+        NSError *error;
+        audioPlayer =[[AVAudioPlayer alloc] initWithData:httpDataBuf error:&error];
+        audioPlayer.numberOfLoops=0;
+        [audioPlayer play];
+    } else {
+        NSLog(@"%@", error);
+    } 
+}
+
+
+-(IBAction) onUploadDone:(id)sender
+{
+    NSLog(@"%s: self:0x%p\n", __func__, self); 
+    
+}
+-(IBAction) onUploadError:(id)sender
+{
+    NSLog(@"%s: self:0x%p\n", __func__, self); 
+    [lblStatus setText:@"上传失败"];
+}
+                                
+-(IBAction) onProgressSelector:(id)sender{
+    HttpUploader * http=sender;
+    //NSString *str=[NSString stringWithFormat:@"send %d totle %d",[http totalBytesWritten],[http totalBytesExpectedToWrite]];
+    [lblStatus setText:[NSString stringWithFormat:@"已发送[%d]字节 共[%d]字节",[http totalBytesWritten],[http totalBytesExpectedToWrite]]];
+    //[ self.view setNeedsDisplay ];
+    //[str release];
+    
+}
+
+
+//上传图片
+-(IBAction)showSavedPhoto:(id)sender{
+	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+		UIImagePickerController *imagePickerController=[[UIImagePickerController alloc] init];
+		imagePickerController.mediaTypes = [NSArray arrayWithObject:(NSString*)kUTTypeImage];
+		imagePickerController.sourceType=UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+		imagePickerController.allowsEditing = YES;
+		imagePickerController.delegate = self;
+		imagePickerController.modalTransitionStyle=UIModalTransitionStyleFlipHorizontal;
+		//currentPickerController = imagePickerController;
+		[self presentModalViewController:imagePickerController animated:YES];
+		[imagePickerController release];
+	}	
+}
+
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    if ([mediaType isEqualToString:@"public.image"]){
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        NSData *data=UIImagePNGRepresentation(image);
+        [lblStatus setText:@"上传图片中...."];
+        //http://221.7.245.196/up/file/recordTest.aac
+        [[[HttpUploader alloc] initWithData:[NSURL URLWithString:@"http://221.7.245.196/up/Upload"]
+                                  fileData:data
+                                remoteFile:[NSString stringWithFormat:@"recordTest.png"]
+                                  delegate:self 
+                              doneSelector:@selector(onUploadDone:)
+                             errorSelector:@selector(onUploadError:)
+                          progressSelector:@selector(onProgressSelector:)] autorelease];  
+    }
+    NSLog(@"%s: self:0x%p\n", __func__, self); 
+    [picker dismissModalViewControllerAnimated:YES];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    NSLog(@"%s: self:0x%p\n", __func__, self); 
+	[picker dismissModalViewControllerAnimated:YES];
+}
+
+
+- (IBAction)btnShowHttpImage:(id)sender {
+    //[imageView.image initWithData: [ NSData dataWithContentsOfURL: [ NSURL URLWithString: @"http://www.95013.com/images/v2index_img01.gif"]]];
+
+    NSURL * imageURL = [NSURL URLWithString:@"http://221.7.245.196/up/file/recordTest.png"];
+    NSData * imageData = [NSData dataWithContentsOfURL:imageURL];
+    UIImage * image = [UIImage imageWithData:imageData];
+    //if (!imageView)
+    {
+        [imageView removeFromSuperview];
+        [imageView release];
+        imageView = [[UIImageView alloc] initWithImage: image];
+        imageView.frame = CGRectMake(20, 345, 280, 95);  
+        //imageView.userInteractionEnabled = YES;  
+        [self.view addSubview: imageView];    
+    }
+    /*
+    else
+    {
+        
+        [imageView initWithImage:image];
+        imageView.frame = CGRectMake(20, 345, 280, 95);  
+        [self.view setNeedsDisplayInRect:imageView.frame];
+    }
+     */
+}
+- (void)dealloc
+{
+    [audioPlayer release];
+    [audioRecorder release];
+    [httpDataBuf release];
+    [lblStatus release];
+    [imageView release];
+    [super dealloc];
+}
 @end

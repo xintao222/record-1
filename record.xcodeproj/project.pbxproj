@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		441D949314279A3700F0F4B7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 441D949214279A3700F0F4B7 /* Default.png */; };
 		445114201426CBDF001702D4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4451141F1426CBDF001702D4 /* UIKit.framework */; };
 		445114221426CBDF001702D4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 445114211426CBDF001702D4 /* Foundation.framework */; };
 		445114241426CBDF001702D4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 445114231426CBDF001702D4 /* CoreGraphics.framework */; };
@@ -16,23 +17,37 @@
 		445114331426CBDF001702D4 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 445114311426CBDF001702D4 /* MainWindow.xib */; };
 		445114361426CBDF001702D4 /* recordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 445114351426CBDF001702D4 /* recordViewController.m */; };
 		445114391426CBDF001702D4 /* recordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 445114371426CBDF001702D4 /* recordViewController.xib */; };
+		445114501426E8F3001702D4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4451144F1426E8F3001702D4 /* AVFoundation.framework */; };
+		4451146B1426EFCF001702D4 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4451146A1426EFCF001702D4 /* Entitlements.plist */; };
+		4451147814271654001702D4 /* HttpUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4451147714271654001702D4 /* HttpUploader.m */; };
+		4488050314283A6600519E0E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4488050214283A6600519E0E /* QuartzCore.framework */; };
+		4488050614283A8100519E0E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4488050514283A8100519E0E /* MobileCoreServices.framework */; };
+		44B23F8414297C6C00D7E83D /* ico.png in Resources */ = {isa = PBXBuildFile; fileRef = 44B23F8314297C6C00D7E83D /* ico.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		441D949214279A3700F0F4B7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4451141B1426CBDF001702D4 /* record.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = record.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4451141F1426CBDF001702D4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		445114211426CBDF001702D4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		445114231426CBDF001702D4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		445114271426CBDF001702D4 /* record-Info.plist */ = {isa = PBXFileReference; path = "record-Info.plist"; sourceTree = "<group>"; };
+		445114271426CBDF001702D4 /* record-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "record-Info.plist"; sourceTree = "<group>"; };
 		445114291426CBDF001702D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4451142B1426CBDF001702D4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4451142D1426CBDF001702D4 /* record-Prefix.pch */ = {isa = PBXFileReference; path = "record-Prefix.pch"; sourceTree = "<group>"; };
-		4451142E1426CBDF001702D4 /* recordAppDelegate.h */ = {isa = PBXFileReference; path = recordAppDelegate.h; sourceTree = "<group>"; };
+		4451142D1426CBDF001702D4 /* record-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "record-Prefix.pch"; sourceTree = "<group>"; };
+		4451142E1426CBDF001702D4 /* recordAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = recordAppDelegate.h; sourceTree = "<group>"; };
 		4451142F1426CBDF001702D4 /* recordAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = recordAppDelegate.m; sourceTree = "<group>"; };
 		445114321426CBDF001702D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		445114341426CBDF001702D4 /* recordViewController.h */ = {isa = PBXFileReference; path = recordViewController.h; sourceTree = "<group>"; };
+		445114341426CBDF001702D4 /* recordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = recordViewController.h; sourceTree = "<group>"; };
 		445114351426CBDF001702D4 /* recordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = recordViewController.m; sourceTree = "<group>"; };
 		445114381426CBDF001702D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/recordViewController.xib; sourceTree = "<group>"; };
+		4451144F1426E8F3001702D4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4451146A1426EFCF001702D4 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		4451147614271654001702D4 /* HttpUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpUploader.h; sourceTree = "<group>"; };
+		4451147714271654001702D4 /* HttpUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpUploader.m; sourceTree = "<group>"; };
+		4488050214283A6600519E0E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4488050514283A8100519E0E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		44B23F8314297C6C00D7E83D /* ico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ico.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +55,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4488050614283A8100519E0E /* MobileCoreServices.framework in Frameworks */,
+				4488050314283A6600519E0E /* QuartzCore.framework in Frameworks */,
+				445114501426E8F3001702D4 /* AVFoundation.framework in Frameworks */,
 				445114201426CBDF001702D4 /* UIKit.framework in Frameworks */,
 				445114221426CBDF001702D4 /* Foundation.framework in Frameworks */,
 				445114241426CBDF001702D4 /* CoreGraphics.framework in Frameworks */,
@@ -52,6 +70,9 @@
 		445114101426CBDF001702D4 = {
 			isa = PBXGroup;
 			children = (
+				4488050514283A8100519E0E /* MobileCoreServices.framework */,
+				4488050214283A6600519E0E /* QuartzCore.framework */,
+				4451146A1426EFCF001702D4 /* Entitlements.plist */,
 				445114251426CBDF001702D4 /* record */,
 				4451141E1426CBDF001702D4 /* Frameworks */,
 				4451141C1426CBDF001702D4 /* Products */,
@@ -69,6 +90,7 @@
 		4451141E1426CBDF001702D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4451144F1426E8F3001702D4 /* AVFoundation.framework */,
 				4451141F1426CBDF001702D4 /* UIKit.framework */,
 				445114211426CBDF001702D4 /* Foundation.framework */,
 				445114231426CBDF001702D4 /* CoreGraphics.framework */,
@@ -84,7 +106,8 @@
 				445114311426CBDF001702D4 /* MainWindow.xib */,
 				445114341426CBDF001702D4 /* recordViewController.h */,
 				445114351426CBDF001702D4 /* recordViewController.m */,
-				445114371426CBDF001702D4 /* recordViewController.xib */,
+				4451147614271654001702D4 /* HttpUploader.h */,
+				4451147714271654001702D4 /* HttpUploader.m */,
 				445114261426CBDF001702D4 /* Supporting Files */,
 			);
 			path = record;
@@ -93,6 +116,9 @@
 		445114261426CBDF001702D4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				44B23F8314297C6C00D7E83D /* ico.png */,
+				441D949214279A3700F0F4B7 /* Default.png */,
+				445114371426CBDF001702D4 /* recordViewController.xib */,
 				445114271426CBDF001702D4 /* record-Info.plist */,
 				445114281426CBDF001702D4 /* InfoPlist.strings */,
 				4451142B1426CBDF001702D4 /* main.m */,
@@ -151,6 +177,9 @@
 				4451142A1426CBDF001702D4 /* InfoPlist.strings in Resources */,
 				445114331426CBDF001702D4 /* MainWindow.xib in Resources */,
 				445114391426CBDF001702D4 /* recordViewController.xib in Resources */,
+				4451146B1426EFCF001702D4 /* Entitlements.plist in Resources */,
+				441D949314279A3700F0F4B7 /* Default.png in Resources */,
+				44B23F8414297C6C00D7E83D /* ico.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +193,7 @@
 				4451142C1426CBDF001702D4 /* main.m in Sources */,
 				445114301426CBDF001702D4 /* recordAppDelegate.m in Sources */,
 				445114361426CBDF001702D4 /* recordViewController.m in Sources */,
+				4451147814271654001702D4 /* HttpUploader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +273,7 @@
 		4451143D1426CBDF001702D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "record/record-Prefix.pch";
 				INFOPLIST_FILE = "record/record-Info.plist";
@@ -254,6 +285,7 @@
 		4451143E1426CBDF001702D4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "record/record-Prefix.pch";
 				INFOPLIST_FILE = "record/record-Info.plist";
@@ -281,6 +313,7 @@
 				4451143E1426CBDF001702D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
