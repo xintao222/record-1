@@ -19,10 +19,10 @@
 {
     // Override point for customization after application launch.
     //[application setStatusBarHidden:NO animated:NO]; 
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
-    
+    /*
     //圖片擴大淡出的效果开始;
     
     //设置一个图片;
@@ -48,7 +48,7 @@
     niceView.frame = CGRectMake(-60, -85, 440, 635);
     [UIView commitAnimations];
     [niceView release];
-    
+    */
     //结束;
     return YES;
 }

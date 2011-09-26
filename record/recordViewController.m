@@ -10,6 +10,8 @@
 #import "HttpUploader.h"
 @implementation recordViewController
 @synthesize lblStatus;
+@synthesize _moviePlayerController;
+@synthesize _moviePlayViewController;
 
 - (void)didReceiveMemoryWarning
 {
@@ -312,6 +314,17 @@
 
 //上传图片
 -(IBAction)showSavedPhoto:(id)sender{
+    
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+		UIImagePickerController *imagePickerController=[[UIImagePickerController alloc] init];
+		imagePickerController.sourceType=UIImagePickerControllerSourceTypeCamera;
+		imagePickerController.delegate = self;
+		imagePickerController.modalTransitionStyle=UIModalTransitionStyleFlipHorizontal;
+		[self presentModalViewController:imagePickerController animated:YES];
+		[imagePickerController release];
+	}
+    /*
 	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
 		UIImagePickerController *imagePickerController=[[UIImagePickerController alloc] init];
 		imagePickerController.mediaTypes = [NSArray arrayWithObject:(NSString*)kUTTypeImage];
@@ -322,25 +335,66 @@
 		//currentPickerController = imagePickerController;
 		[self presentModalViewController:imagePickerController animated:YES];
 		[imagePickerController release];
-	}	
+	}
+     */
 }
+//上传视频
 
+- (IBAction)btnSaveVideo:(id)sender {
+	NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+	if([mediaTypes containsObject:@"public.movie"]){
+		UIImagePickerController *imagePickerController=[[UIImagePickerController alloc] init];
+		imagePickerController.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeMovie];
+		imagePickerController.sourceType=UIImagePickerControllerSourceTypeCamera;
+		imagePickerController.videoQuality = UIImagePickerControllerQualityTypeLow;
+		imagePickerController.delegate = self;
+		imagePickerController.modalTransitionStyle=UIModalTransitionStyleFlipHorizontal;
+		[self presentModalViewController:imagePickerController animated:YES];
+		[imagePickerController release];
+	}
+    /*
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+		UIImagePickerController *imagePickerController=[[UIImagePickerController alloc] init];
+		imagePickerController.mediaTypes = [NSArray arrayWithObject:(NSString*)kUTTypeMovie];
+		imagePickerController.sourceType=UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+		imagePickerController.allowsEditing = NO;
+		imagePickerController.delegate = self;
+		imagePickerController.modalTransitionStyle=UIModalTransitionStyleFlipHorizontal;
+		//currentPickerController = imagePickerController;
+		[self presentModalViewController:imagePickerController animated:YES];
+		[imagePickerController release];
+	}
+     */
+}
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:@"public.image"]){
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        NSData *data=UIImagePNGRepresentation(image);
+        //NSData *data=UIImagePNGRepresentation(image);
+        NSData *data=UIImageJPEGRepresentation(image,0.5);
         [lblStatus setText:@"上传图片中...."];
         //http://221.7.245.196/up/file/recordTest.aac
         [[[HttpUploader alloc] initWithData:[NSURL URLWithString:@"http://221.7.245.196/up/Upload"]
                                   fileData:data
-                                remoteFile:[NSString stringWithFormat:@"recordTest.png"]
+                                remoteFile:[NSString stringWithFormat:@"recordTest.jpg"]
                                   delegate:self 
                               doneSelector:@selector(onUploadDone:)
                              errorSelector:@selector(onUploadError:)
                           progressSelector:@selector(onProgressSelector:)] autorelease];  
-    }
+    }	else if ([mediaType isEqualToString:@"public.movie"]){
+		NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
+		NSString *tempFilePath = [videoURL path];
+        [lblStatus setText:@"上传视频中...."];
+        //http://221.7.245.196/up/file/recordTest.aac
+        [[[HttpUploader alloc] initWithURL:[NSURL URLWithString:@"http://221.7.245.196/up/Upload"]
+                                   filePath:tempFilePath
+                                 remoteFile:[NSString stringWithFormat:@"recordTest1.mov"]
+                                   delegate:self 
+                               doneSelector:@selector(onUploadDone:)
+                              errorSelector:@selector(onUploadError:)
+                           progressSelector:@selector(onProgressSelector:)] autorelease]; 		
+	}
     NSLog(@"%s: self:0x%p\n", __func__, self); 
     [picker dismissModalViewControllerAnimated:YES];
 }
@@ -354,7 +408,7 @@
 - (IBAction)btnShowHttpImage:(id)sender {
     //[imageView.image initWithData: [ NSData dataWithContentsOfURL: [ NSURL URLWithString: @"http://www.95013.com/images/v2index_img01.gif"]]];
 
-    NSURL * imageURL = [NSURL URLWithString:@"http://221.7.245.196/up/file/recordTest.png"];
+    NSURL * imageURL = [NSURL URLWithString:@"http://221.7.245.196/up/file/recordTest.jpg"];
     NSData * imageData = [NSData dataWithContentsOfURL:imageURL];
     UIImage * image = [UIImage imageWithData:imageData];
     //if (!imageView)
@@ -376,6 +430,98 @@
     }
      */
 }
+
+
+
+
+//本地视频事件
+
+- (IBAction)btnPlayLocalVideo:(id)sender
+{//此方法只是 3。2以后的方法
+    
+    NSString *path=[[NSBundle mainBundle] pathForResource:@"sophie" ofType:@"mov"];
+    NSURL *url=[[NSURL alloc] initFileURLWithPath:path];
+    MPMoviePlayerViewController* tmpMoviePlayViewController=[[MPMoviePlayerViewController alloc] initWithContentURL:url];
+    if (tmpMoviePlayViewController)
+    {
+        self._moviePlayViewController=tmpMoviePlayViewController;
+        
+        [self presentMoviePlayerViewControllerAnimated:_moviePlayViewController];
+        _moviePlayViewController.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
+        [_moviePlayViewController.moviePlayer play];
+    }
+    [tmpMoviePlayViewController release];  
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackDidFinish) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    
+}
+
+- (IBAction)btnPlayURLVideo:(id)sender{
+    NSString *videoPath =@"http://221.7.245.196/up/file/recordTest1.mov";
+    if (videoPath == NULL)
+        return;
+    
+    [self initAndPlay:videoPath];
+}
+
+
+-(void) initAndPlay:(NSString *)videoURL
+{
+    if ([videoURL rangeOfString:@"http://"].location!=NSNotFound||[videoURL rangeOfString:@"https://"].location!=NSNotFound) 
+    {
+        NSURL *URL = [[NSURL alloc] initWithString:videoURL];
+        if (URL) {
+            if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 3.2)
+            {//3。2以后
+                
+                MPMoviePlayerViewController* tmpMoviePlayViewController=[[MPMoviePlayerViewController alloc] initWithContentURL:URL];
+                if (tmpMoviePlayViewController)
+                {
+                    self._moviePlayViewController=tmpMoviePlayViewController;
+                    
+                    [self presentMoviePlayerViewControllerAnimated:_moviePlayViewController];
+                    _moviePlayViewController.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
+                    //[self.view addSubview:_moviePlayViewController.view];
+                    [_moviePlayViewController.moviePlayer play];
+                }
+                [tmpMoviePlayViewController release];    
+            }
+            else if([[[UIDevice currentDevice] systemVersion] doubleValue] < 3.2)
+            {//3。2以前
+                MPMoviePlayerController* tmpMoviePlayController=[[MPMoviePlayerController alloc] initWithContentURL:URL];
+                if (tmpMoviePlayController)                      
+                {
+                    self._moviePlayerController=tmpMoviePlayController;
+                    [_moviePlayerController play];
+                }
+                [tmpMoviePlayController release];
+            }
+            //视频播放完成通知
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackDidFinish) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+        }
+        [URL release];
+    }
+}
+- (void) playbackDidFinish
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];  
+    if (_moviePlayViewController)
+    {
+        [self dismissMoviePlayerViewControllerAnimated];
+        [self._moviePlayViewController.moviePlayer stop];
+        _moviePlayViewController.moviePlayer.initialPlaybackTime=-1.0;
+        [_moviePlayViewController release];
+        _moviePlayViewController=nil;
+    }
+    if (_moviePlayerController) 
+    {
+        [self._moviePlayerController stop];
+        _moviePlayerController.initialPlaybackTime = -1.0;
+        [_moviePlayerController release];
+        _moviePlayerController = nil;
+    }
+}
+
 - (void)dealloc
 {
     [audioPlayer release];

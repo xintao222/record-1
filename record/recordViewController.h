@@ -10,12 +10,17 @@
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
+#import <MediaPlayer/MediaPlayer.h>
+
 @interface recordViewController : UIViewController
 {
     AVAudioPlayer *audioPlayer;
     AVAudioRecorder *audioRecorder;
     
     NSMutableData  * httpDataBuf;
+    
+    MPMoviePlayerViewController *_moviePlayViewController;
+    MPMoviePlayerController *_moviePlayerController;
     int recordEncoding;
     enum
     {
@@ -30,6 +35,11 @@
     UIImageView *imageView;
 }
 @property (nonatomic, retain) IBOutlet UILabel *lblStatus;
+
+@property (nonatomic,retain) MPMoviePlayerViewController *_moviePlayViewController;
+@property (nonatomic,retain) MPMoviePlayerController *_moviePlayerController;
+-(void) initAndPlay:(NSString *)videoURL;
+
 
 -(IBAction) startRecording;
 -(IBAction) stopRecording;
@@ -50,5 +60,10 @@
 - (IBAction)btnRecordExit:(id)sender;
 - (IBAction)showSavedPhoto:(id)sender;
 - (IBAction)btnShowHttpImage:(id)sender;
+- (IBAction)btnSaveVideo:(id)sender;
+
+
+- (IBAction)btnPlayURLVideo:(id)sender;
+- (IBAction)btnPlayLocalVideo:(id)sender;
 
 @end
