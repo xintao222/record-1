@@ -47,7 +47,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
       errorSelector: (SEL)aErrorSelector
    progressSelector: (SEL)aProgressSelector
 {
-
+    
     if ((self = [super init])) {
         ASSERT(aServerURL);
         ASSERT(aFileData);
@@ -123,7 +123,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
         } else{
             [self upload];
         }
-
+        
     }
     return self;
 }
@@ -387,7 +387,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
     if (progressSelector)
         [delegate performSelector:progressSelector
                        withObject:self];
-     NSLog(@"%s: self:[%p] %d %d %d\n", __func__, self ,bytesWritten ,totalBytesWritten ,totalBytesExpectedToWrite);
+    NSLog(@"%s: self:[%p] %d %d %d\n", __func__, self ,bytesWritten ,totalBytesWritten ,totalBytesExpectedToWrite);
 }
 /*
  *-----------------------------------------------------------------------------

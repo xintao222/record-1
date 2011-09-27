@@ -23,32 +23,32 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     /*
-    //圖片擴大淡出的效果开始;
-    
-    //设置一个图片;
-    UIImageView *niceView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, 320, 480)];
-    niceView.image = [UIImage imageNamed:@"Default.png"];
-    
-    //添加到场景
-    [self.window addSubview:niceView];
-    
-    //放到最顶层;
-    [self.window bringSubviewToFront:niceView];
-    
-    //开始设置动画;
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:2.0];
-    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.window cache:YES];
-    [UIView setAnimationDelegate:self];
-    //這裡還可以設置回調函數;
-    
-    //[UIView setAnimationDidStopSelector:@selector(startupAnimationDone:finished:context:)];
-    
-    niceView.alpha = 0.0;
-    niceView.frame = CGRectMake(-60, -85, 440, 635);
-    [UIView commitAnimations];
-    [niceView release];
-    */
+     //圖片擴大淡出的效果开始;
+     
+     //设置一个图片;
+     UIImageView *niceView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, 320, 480)];
+     niceView.image = [UIImage imageNamed:@"Default.png"];
+     
+     //添加到场景
+     [self.window addSubview:niceView];
+     
+     //放到最顶层;
+     [self.window bringSubviewToFront:niceView];
+     
+     //开始设置动画;
+     [UIView beginAnimations:nil context:nil];
+     [UIView setAnimationDuration:2.0];
+     [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.window cache:YES];
+     [UIView setAnimationDelegate:self];
+     //這裡還可以設置回調函數;
+     
+     //[UIView setAnimationDidStopSelector:@selector(startupAnimationDone:finished:context:)];
+     
+     niceView.alpha = 0.0;
+     niceView.frame = CGRectMake(-60, -85, 440, 635);
+     [UIView commitAnimations];
+     [niceView release];
+     */
     //结束;
     return YES;
 }

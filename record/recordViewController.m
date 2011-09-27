@@ -97,11 +97,11 @@
         [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
         [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
         /*
-        [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
-        [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-        [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
-        [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-        [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
+         [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
+         [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
+         [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
+         [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
+         [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
          */
     }
     
@@ -110,7 +110,7 @@
     
     NSError *error = nil;
     audioRecorder = [[ AVAudioRecorder alloc] initWithURL:url settings:recordSettings error:&error];
-
+    
     
     if ([audioRecorder prepareToRecord] == YES){
         [audioRecorder record];
@@ -185,12 +185,12 @@
     [lblStatus setText:@"上传中...."];
     //http://221.7.245.196/up/file/recordTest.aac
     [[[HttpUploader alloc] initWithURL:[NSURL URLWithString:@"http://221.7.245.196/up/Upload"]
-                             filePath:[NSString stringWithFormat:@"%@/recordTest.aac", [[NSBundle mainBundle] resourcePath]]
-                           remoteFile:[NSString stringWithFormat:@"recordTest.aac"]
-                             delegate:self 
-                         doneSelector:@selector(onUploadDone:)
-                        errorSelector:@selector(onUploadError:)
-                     progressSelector:@selector(onProgressSelector:)] autorelease]; 
+                              filePath:[NSString stringWithFormat:@"%@/recordTest.aac", [[NSBundle mainBundle] resourcePath]]
+                            remoteFile:[NSString stringWithFormat:@"recordTest.aac"]
+                              delegate:self 
+                          doneSelector:@selector(onUploadDone:)
+                         errorSelector:@selector(onUploadError:)
+                      progressSelector:@selector(onProgressSelector:)] autorelease]; 
 }   
 
 
@@ -202,7 +202,7 @@
         [audioPlayer release];
         audioPlayer=nil;
     }
-     [lblStatus setText:[NSString stringWithFormat:@"开始经收!!!"]];
+    [lblStatus setText:[NSString stringWithFormat:@"开始经收!!!"]];
     if (httpDataBuf)
         [httpDataBuf release];
     httpDataBuf=[[NSMutableData alloc] init];
@@ -223,16 +223,16 @@
     [httpDataBuf appendData:data];
     [lblStatus setText:[NSString stringWithFormat:@"已经收[%d]字节",[httpDataBuf length]]];
     /*
-    if (audioPlayer.playing == FALSE) {
-        //[lblStatus setText:[NSString stringWithFormat:@"共接收[%d]字节 开始播放",[httpDataBuf length]]];
-        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-        [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
-        NSError *error;
-        audioPlayer =[[AVAudioPlayer alloc] initWithData:httpDataBuf error:&error];
-        audioPlayer.numberOfLoops=0;
-        [audioPlayer play];
-    }
-    */
+     if (audioPlayer.playing == FALSE) {
+     //[lblStatus setText:[NSString stringWithFormat:@"共接收[%d]字节 开始播放",[httpDataBuf length]]];
+     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+     NSError *error;
+     audioPlayer =[[AVAudioPlayer alloc] initWithData:httpDataBuf error:&error];
+     audioPlayer.numberOfLoops=0;
+     [audioPlayer play];
+     }
+     */
 }
 //数据接受完成
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -245,14 +245,14 @@
     }
     if (audioPlayer.playing == FALSE) {
         [lblStatus setText:[NSString stringWithFormat:@"共接收[%d]字节 开始播放",[httpDataBuf length]]];
-       // AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-       // [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+        // AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        // [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
         NSError *error;
         audioPlayer =[[AVAudioPlayer alloc] initWithData:httpDataBuf error:&error];
         audioPlayer.numberOfLoops=0;
         [audioPlayer play];
     }  
-     
+    
 }
 
 //同步
@@ -267,7 +267,7 @@
     if (httpDataBuf)
         [httpDataBuf release];
     httpDataBuf=[[NSMutableData alloc] init];
-
+    
     
     NSString *urlAsString = @"http://221.7.245.196/up/file/recordTest.aac";
     NSURL    *url = [NSURL URLWithString:urlAsString];
@@ -301,14 +301,10 @@
     NSLog(@"%s: self:0x%p\n", __func__, self); 
     [lblStatus setText:@"上传失败"];
 }
-                                
+
 -(IBAction) onProgressSelector:(id)sender{
     HttpUploader * http=sender;
-    //NSString *str=[NSString stringWithFormat:@"send %d totle %d",[http totalBytesWritten],[http totalBytesExpectedToWrite]];
     [lblStatus setText:[NSString stringWithFormat:@"已发送[%d]字节 共[%d]字节",[http totalBytesWritten],[http totalBytesExpectedToWrite]]];
-    //[ self.view setNeedsDisplay ];
-    //[str release];
-    
 }
 
 
@@ -325,17 +321,17 @@
 		[imagePickerController release];
 	}
     /*
-	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
-		UIImagePickerController *imagePickerController=[[UIImagePickerController alloc] init];
-		imagePickerController.mediaTypes = [NSArray arrayWithObject:(NSString*)kUTTypeImage];
-		imagePickerController.sourceType=UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-		imagePickerController.allowsEditing = YES;
-		imagePickerController.delegate = self;
-		imagePickerController.modalTransitionStyle=UIModalTransitionStyleFlipHorizontal;
-		//currentPickerController = imagePickerController;
-		[self presentModalViewController:imagePickerController animated:YES];
-		[imagePickerController release];
-	}
+     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+     UIImagePickerController *imagePickerController=[[UIImagePickerController alloc] init];
+     imagePickerController.mediaTypes = [NSArray arrayWithObject:(NSString*)kUTTypeImage];
+     imagePickerController.sourceType=UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+     imagePickerController.allowsEditing = YES;
+     imagePickerController.delegate = self;
+     imagePickerController.modalTransitionStyle=UIModalTransitionStyleFlipHorizontal;
+     //currentPickerController = imagePickerController;
+     [self presentModalViewController:imagePickerController animated:YES];
+     [imagePickerController release];
+     }
      */
 }
 //上传视频
@@ -353,17 +349,17 @@
 		[imagePickerController release];
 	}
     /*
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
-		UIImagePickerController *imagePickerController=[[UIImagePickerController alloc] init];
-		imagePickerController.mediaTypes = [NSArray arrayWithObject:(NSString*)kUTTypeMovie];
-		imagePickerController.sourceType=UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-		imagePickerController.allowsEditing = NO;
-		imagePickerController.delegate = self;
-		imagePickerController.modalTransitionStyle=UIModalTransitionStyleFlipHorizontal;
-		//currentPickerController = imagePickerController;
-		[self presentModalViewController:imagePickerController animated:YES];
-		[imagePickerController release];
-	}
+     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+     UIImagePickerController *imagePickerController=[[UIImagePickerController alloc] init];
+     imagePickerController.mediaTypes = [NSArray arrayWithObject:(NSString*)kUTTypeMovie];
+     imagePickerController.sourceType=UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+     imagePickerController.allowsEditing = NO;
+     imagePickerController.delegate = self;
+     imagePickerController.modalTransitionStyle=UIModalTransitionStyleFlipHorizontal;
+     //currentPickerController = imagePickerController;
+     [self presentModalViewController:imagePickerController animated:YES];
+     [imagePickerController release];
+     }
      */
 }
 
@@ -376,24 +372,24 @@
         [lblStatus setText:@"上传图片中...."];
         //http://221.7.245.196/up/file/recordTest.aac
         [[[HttpUploader alloc] initWithData:[NSURL URLWithString:@"http://221.7.245.196/up/Upload"]
-                                  fileData:data
-                                remoteFile:[NSString stringWithFormat:@"recordTest.jpg"]
-                                  delegate:self 
-                              doneSelector:@selector(onUploadDone:)
-                             errorSelector:@selector(onUploadError:)
-                          progressSelector:@selector(onProgressSelector:)] autorelease];  
+                                   fileData:data
+                                 remoteFile:[NSString stringWithFormat:@"recordTest.jpg"]
+                                   delegate:self 
+                               doneSelector:@selector(onUploadDone:)
+                              errorSelector:@selector(onUploadError:)
+                           progressSelector:@selector(onProgressSelector:)] autorelease];  
     }	else if ([mediaType isEqualToString:@"public.movie"]){
 		NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
 		NSString *tempFilePath = [videoURL path];
         [lblStatus setText:@"上传视频中...."];
         //http://221.7.245.196/up/file/recordTest.aac
         [[[HttpUploader alloc] initWithURL:[NSURL URLWithString:@"http://221.7.245.196/up/Upload"]
-                                   filePath:tempFilePath
-                                 remoteFile:[NSString stringWithFormat:@"recordTest1.mov"]
-                                   delegate:self 
-                               doneSelector:@selector(onUploadDone:)
-                              errorSelector:@selector(onUploadError:)
-                           progressSelector:@selector(onProgressSelector:)] autorelease]; 		
+                                  filePath:tempFilePath
+                                remoteFile:[NSString stringWithFormat:@"recordTest1.mov"]
+                                  delegate:self 
+                              doneSelector:@selector(onUploadDone:)
+                             errorSelector:@selector(onUploadError:)
+                          progressSelector:@selector(onProgressSelector:)] autorelease]; 		
 	}
     NSLog(@"%s: self:0x%p\n", __func__, self); 
     [picker dismissModalViewControllerAnimated:YES];
@@ -407,28 +403,16 @@
 
 - (IBAction)btnShowHttpImage:(id)sender {
     //[imageView.image initWithData: [ NSData dataWithContentsOfURL: [ NSURL URLWithString: @"http://www.95013.com/images/v2index_img01.gif"]]];
-
+    
     NSURL * imageURL = [NSURL URLWithString:@"http://221.7.245.196/up/file/recordTest.jpg"];
     NSData * imageData = [NSData dataWithContentsOfURL:imageURL];
     UIImage * image = [UIImage imageWithData:imageData];
-    //if (!imageView)
-    {
-        [imageView removeFromSuperview];
-        [imageView release];
-        imageView = [[UIImageView alloc] initWithImage: image];
-        imageView.frame = CGRectMake(20, 345, 280, 95);  
-        //imageView.userInteractionEnabled = YES;  
-        [self.view addSubview: imageView];    
-    }
-    /*
-    else
-    {
-        
-        [imageView initWithImage:image];
-        imageView.frame = CGRectMake(20, 345, 280, 95);  
-        [self.view setNeedsDisplayInRect:imageView.frame];
-    }
-     */
+    [imageView removeFromSuperview];
+    [imageView release];
+    imageView = [[UIImageView alloc] initWithImage: image];
+    imageView.frame = CGRectMake(20, 345, 280, 95);  
+    [self.view addSubview: imageView];    
+    
 }
 
 
@@ -480,7 +464,6 @@
                     
                     [self presentMoviePlayerViewControllerAnimated:_moviePlayViewController];
                     _moviePlayViewController.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-                    //[self.view addSubview:_moviePlayViewController.view];
                     [_moviePlayViewController.moviePlayer play];
                 }
                 [tmpMoviePlayViewController release];    
